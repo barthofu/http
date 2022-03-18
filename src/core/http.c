@@ -14,10 +14,12 @@
 
 int sendResponse (int client_sockfd, char *header, int fdFile) {
 
+	fprintf(stderr, "%s", header);
+
 	char buffer[1000];
 	int nbOctets;
 
-	if (send(client_sockfd, header, sizeof(header) * sizeof(char), 0) < 0) perror("send");
+	if (send(client_sockfd, header, strlen(header), 0) < 0) perror("send");
 
 	while ((nbOctets = read(fdFile, buffer, 100)) > 0) {
 		if (send(client_sockfd, buffer, nbOctets, 0) < 0) perror("send");
@@ -37,36 +39,6 @@ int processResponse (char *fileName, int client_sockfd, int fdFile) {
 		fprintf(stderr, "Erreur processResponse(): le fichier %s n'est pas reconnu\n", fileName);
 		return -1;
 	}
-}
-
-
-int processRequest (int client_sockfd) {
-
-    int nbOctets, fdFile;
-    char buffer[1000], fileName[1000];
-
-    // recv request
-    if (recv(client_sockfd, buffer, sizeof(buffer) * sizeof(char), 0) < 0) perror("recv");
-
-    // parse request
-    if (parseRequest(buffer, sizeof(buffer), fileName, sizeof(fileName)) == -1) {
-        
-        // if the request is invalid, we send an error 400
-        if (send(client_sockfd, HEADER_400, sizeof(HEADER_400) * sizeof(char), 0) < 0) perror("send");
-
-		if ((fdFile = openFile("file400.html")) < 0) perror("Erreur open");
-
-		while ((nbOctets = read(fdFile, buffer, 100)) > 0) {
-			if (send(client_sockfd, buffer, nbOctets , 0) < 0) perror (" Erreur send ");
-		}
-    }
-	else {
-		if ((fdFile = openFile(fileName)) < 0) perror("Erreur open"); // TODO : make a 404 response process 
-		else processResponse(fileName, client_sockfd, fdFile);
-	}
-
-	close(client_sockfd);
-
 }
 
 
@@ -92,5 +64,34 @@ int processOpenError (int client_sockfd, int fdFile) {
 			if (send(client_sockfd, buffer, nbOctets , 0) < 0) perror("Erreur send");
 		}
 	}
+
+}
+
+int processRequest (int client_sockfd) {
+
+    int nbOctets, fdFile;
+    char buffer[1000], fileName[1000];
+
+    // recv request
+    if (recv(client_sockfd, buffer, sizeof(buffer) * sizeof(char), 0) < 0) perror("recv");
+
+    // parse request
+    if (parseRequest(buffer, sizeof(buffer), fileName, sizeof(fileName)) == -1) {
+        
+        // if the request is invalid, we send an error 400
+        if (send(client_sockfd, HEADER_400, sizeof(HEADER_400) * sizeof(char), 0) < 0) perror("send");
+
+		if ((fdFile = openFile("file400.html")) < 0) perror("Erreur open");
+
+		while ((nbOctets = read(fdFile, buffer, 100)) > 0) {
+			if (send(client_sockfd, buffer, nbOctets , 0) < 0) perror (" Erreur send ");
+		}
+    }
+	else {
+		if ((fdFile = openFile(fileName)) < 0) processOpenError(client_sockfd, fdFile); // TODO : make a 404 response process 
+		else processResponse(fileName, client_sockfd, fdFile);
+	}
+
+	close(client_sockfd);
 
 }

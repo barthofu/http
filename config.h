@@ -11,8 +11,8 @@
 
     // 2xx
 #define HEADER_HTML "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n"
-#define HEADER_PNG "HTTP/1.1 200 OK\r\nContent-Type: text/png\r\n\r\n"
-#define HEADER_JPG "HTTP/1.1 200 OK\r\nContent-Type: text/jpg\r\n\r\n"
+#define HEADER_PNG "HTTP/1.1 200 OK\r\nContent-Type: image/png\r\n\r\n"
+#define HEADER_JPG "HTTP/1.1 200 OK\r\nContent-Type: image/jpg\r\n\r\n"
 
     // 4xx
 #define HEADER_400 "HTTP/1.1 400 BAD REQUEST\r\nContent-Type: text/html\r\n\r\n"
