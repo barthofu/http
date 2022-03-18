@@ -60,8 +60,8 @@ int processRequest (int client_sockfd) {
 			if (send(client_sockfd, buffer, nbOctets , 0) < 0) perror (" Erreur send ");
 		}
     }
-	else {		
-		if ((fdFile = openFile(fileName)) < 0) perror("Erreur open1"); // TODO : make a 404 response process 
+	else {
+		if ((fdFile = openFile(fileName)) < 0) perror("Erreur open"); // TODO : make a 404 response process 
 		else processResponse(fileName, client_sockfd, fdFile);
 	}
 

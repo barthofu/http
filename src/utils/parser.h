@@ -3,5 +3,4 @@
 
 int parseRequest(char* requestFromClient, int requestSize, char* string, int stringSize);
 
-
 #endif

@@ -30,6 +30,9 @@ int server_create(char *port) {
         exit(1);
     }
 
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int)) < 0)
+        perror("setsockopt(SO_REUSEADDR) failed");
+
 
     if (bind(sockfd, res->ai_addr, res->ai_addrlen) == -1) {
         perror("bind");
@@ -51,9 +54,6 @@ int server_listen(int sockfd) {
         struct sockaddr_storage client_addr;
         socklen_t addr_size;
         int client_sockfd;
-        
-        char buffer[256];
-        int n;
 
         client_sockfd = accept(sockfd, NULL, NULL);
         if (client_sockfd < 0) continue;
@@ -65,11 +65,9 @@ int server_listen(int sockfd) {
         } else if (pid == 0) {
             // process the request
             processRequest(client_sockfd);
-
-            close(client_sockfd);
             exit(0);
-        } else {
-            close(client_sockfd);
         }
+
+        close(client_sockfd);
     }
 }

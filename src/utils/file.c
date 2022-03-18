@@ -5,12 +5,13 @@
 #include <string.h>
 
 #include "../../config.h"
+#include "../utils/string.h"
 
 int openFile (char* fileName) {
 
     int fdFile;
     
-    if ((fdFile = open(strcat(BASE_WEBSITE_DIR, fileName), O_RDONLY)) < 0) {
+    if ((fdFile = open(concat(BASE_WEBSITE_DIR, fileName), O_RDONLY)) < 0) {
         perror("Erreur open");
         return -1;
     }

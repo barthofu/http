@@ -11,6 +11,7 @@ set(SRCS
     src/core/server.c
     src/utils/parser.c
     src/utils/file.c
+    src/utils/string.c
     )
     
 set(HEADERS
@@ -18,6 +19,7 @@ set(HEADERS
     src/core/server.h
     src/utils/parser.h
     src/utils/file.h
+    src/utils/string.h
     config.h
     )
 
