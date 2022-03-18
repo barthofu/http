@@ -8,19 +8,19 @@
 
 #include "http.h"
   
-int create_server(char *port) {
+int server_create(char *port) {
 
     struct addrinfo hints, *res;
     int sockfd, error;
 
-    // setup du serveur
+    // server setup
 
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_INET6;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE; // to tell that we are server side
 
-    if (getaddrinfo(NULL, "2000", &hints, &res) != 0) {
+    if (getaddrinfo(NULL, port, &hints, &res) != 0) {
         perror("getaddrinfo");
         exit(1);
     }
@@ -64,7 +64,7 @@ int server_listen(int sockfd) {
             return -1;
         } else if (pid == 0) {
             // process the request
-            processGETRequest(client_sockfd);
+            processRequest(client_sockfd);
 
             close(client_sockfd);
             exit(0);

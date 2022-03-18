@@ -52,13 +52,13 @@ int parseRequest(char* requestFromClient, int requestSize, char* string, int str
 	//Si stringSize n'est pas suffisement grand, la chaine ne contient pas de '\0'. Pour verifier il suffit de tester string[stringSize-1] qui
 	// doit etre = '\0' car strncpy remplit la chaine avec des '\0' quand il y a de la place.
 	if(string[stringSize-1]!='\0'){
-		fprintf(1,"Erreur parseRequest(): la taille de la chaine string n'est pas suffisante (stringSize=%d)\n",stringSize);
+		fprintf(stderr,"Erreur parseRequest(): la taille de la chaine string n'est pas suffisante (stringSize=%d)\n",stringSize);
 		exit(3);
 	}
 	
 	//DEBUG - Vous pouvez le supprimer si vous le souhaitez.
-	if( *(charPtr[1]+2) == '\0') fprintf(1,"DEBUG-SERVEUR: le nom de fichier demande est vide -\nDEBUG-SERVEUR: - on associe donc le fichier par defaut index.html\n");
-	else fprintf(1,"DEBUG-SERVEUR: le nom de fichier demande est %s\n",string);
+	if( *(charPtr[1]+2) == '\0') fprintf(stderr,"DEBUG-SERVEUR: le nom de fichier demande est vide -\nDEBUG-SERVEUR: - on associe donc le fichier par defaut index.html\n");
+	else fprintf(stderr,"DEBUG-SERVEUR: le nom de fichier demande est %s\n",string);
 
 	if( *(charPtr[1]+2) == '\0') strcpy(string,"index.html");
 
