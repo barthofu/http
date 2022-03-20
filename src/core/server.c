@@ -33,7 +33,6 @@ int server_create(char *port) {
     if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &(int){1}, sizeof(int)) < 0)
         perror("setsockopt(SO_REUSEADDR) failed");
 
-
     if (bind(sockfd, res->ai_addr, res->ai_addrlen) == -1) {
         perror("bind");
         exit(1);
@@ -55,16 +54,18 @@ int server_listen(int sockfd) {
         socklen_t addr_size;
         int client_sockfd;
 
-        client_sockfd = accept(sockfd, NULL, NULL);
+        client_sockfd = accept(sockfd, (struct sockaddr*) &client_addr, &addr_size);
         if (client_sockfd < 0) continue;
 
         int pid = fork();
+
         if (pid < 0) {
             close(client_sockfd);
             return -1;
-        } else if (pid == 0) {
+        } 
+        else if (pid == 0) {
             // process the request
-            processRequest(client_sockfd);
+            processRequest(client_sockfd, client_addr);
             exit(0);
         }
 

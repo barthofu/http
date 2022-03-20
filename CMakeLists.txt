@@ -12,6 +12,7 @@ set(SRCS
     src/utils/parser.c
     src/utils/file.c
     src/utils/string.c
+    src/utils/logger.c
     )
     
 set(HEADERS
@@ -20,6 +21,7 @@ set(HEADERS
     src/utils/parser.h
     src/utils/file.h
     src/utils/string.h
+    src/utils/logger.h
     config.h
     )
 

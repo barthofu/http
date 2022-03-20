@@ -10,6 +10,7 @@
 
 #include "../utils/parser.h" 
 #include "../utils/file.h" 
+#include "../utils/logger.h" 
 #include "../../config.h"
 
 int sendResponse (int client_sockfd, char *header, int fdFile) {
@@ -67,7 +68,8 @@ int processOpenError (int client_sockfd, int fdFile) {
 
 }
 
-int processRequest (int client_sockfd) {
+
+int processRequest (int client_sockfd, struct sockaddr_storage client_addr) {
 
     int nbOctets, fdFile;
     char buffer[1000], fileName[1000];
@@ -84,11 +86,14 @@ int processRequest (int client_sockfd) {
 		if ((fdFile = openFile("file400.html")) < 0) perror("Erreur open");
 
 		while ((nbOctets = read(fdFile, buffer, 100)) > 0) {
-			if (send(client_sockfd, buffer, nbOctets , 0) < 0) perror (" Erreur send ");
+			if (send(client_sockfd, buffer, nbOctets , 0) < 0) perror("Erreur send");
 		}
     }
 	else {
-		if ((fdFile = openFile(fileName)) < 0) processOpenError(client_sockfd, fdFile); // TODO : make a 404 response process 
+
+		logConnection(client_addr, fileName);
+
+		if ((fdFile = openFile(fileName)) < 0) processOpenError(client_sockfd, fdFile); 
 		else processResponse(fileName, client_sockfd, fdFile);
 	}
 
