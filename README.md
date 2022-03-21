@@ -2,6 +2,7 @@
 
 Serveur web réalisé dans le cadre du TP3 de Programmation Répartie à l'IUT Lyon 1 - site Doua. 
 C'est un serveur très basique qui peut renvoyer des fichiers HTML, PNG et JPG situés dans le dossier `website` via des requêtes HTTP GET classiques.
+Chaque connexion de clients est loggée dans le fichier `logs.txt`.
 
 # Pré-requis
 
@@ -37,4 +38,4 @@ C'est un serveur très basique qui peut renvoyer des fichiers HTML, PNG et JPG s
 - [x] Gestion des images
     - [x] PNG
     - [x] JPG
-- [x] Log de connexion (adresse IP + heure et date + URI)
+- [x] Log de connexion (adresse IP + heure et date + URI) dans le fichier `logs.txt`
