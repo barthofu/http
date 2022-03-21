@@ -7,6 +7,7 @@
 #include "../../config.h"
 #include "../utils/string.h"
 
+// Cette fonction permet d'ouuvrir un fichier en y rajoutant BASE_WEBSITE_DIR avant le nom du fichier
 int openFile (char* fileName) {
 
     int fdFile;
