@@ -1,6 +1,6 @@
 # HTTP
 
-Serveur web réalisé dans le cadre du TP3 de Programmation Répartie à l'IUT Lyon 1 - site Doua. 
+Serveur web réalisé dans le cadre du TP3 de Programmation Répartie à l'IUT Lyon 1 - site Doua par **Bartholomé GILI** et **Lazare CHEVEREAU** 
 C'est un serveur très basique qui peut renvoyer des fichiers HTML, PNG et JPG situés dans le dossier `website` via des requêtes HTTP GET classiques.
 Chaque connexion de clients est loggée dans le fichier `logs.txt`.
 
