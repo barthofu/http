@@ -15,6 +15,13 @@ Chaque connexion de clients est loggée dans le fichier `logs.txt`.
 2. `make`
 3. `./http`
 
+# Configuration
+
+Toute la configuration de l'application peut être retrouvée dans le fichier `config.h`. Sont ainsi modifiables :
+- Le port
+- Le fichier où seront stockés les logs
+- Le chemin d'accès au répertoire contenant le site web statique
+
 # Fonctionnalités
 
 ### 1. Serveur
