@@ -1,3 +1,5 @@
+#include <sys/socket.h>
+
 #ifndef __HTTP_H
 #define __HTTP_H
 

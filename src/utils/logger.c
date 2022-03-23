@@ -9,6 +9,8 @@
 #include <string.h>
 #include <time.h>
 
+#include "../../config.h"
+
 int logFile (char *fileName, FILE *fd) {
     fprintf(fd, fileName, strlen(fileName));
     return 0;
@@ -57,7 +59,7 @@ int logIp (struct sockaddr_storage client_addr, FILE *fd) {
 int logConnection (struct sockaddr_storage client_addr, char *fileName) {
 
     FILE *fd;
-    fd = fopen("logs.txt", "a");
+    fd = fopen(LOGS_FILE, "a");
     
     logTime(fd);
     logIp(client_addr, fd);
