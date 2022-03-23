@@ -23,6 +23,7 @@ set(HEADERS
     src/utils/string.h
     src/utils/logger.h
     config.h
+    src/constants/headers.h
     )
 
 # On indique que l'on veut un exécutable "http" compilé à partir des fichiers décrits par les variables SRCS et HEADERS
